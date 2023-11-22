@@ -95,7 +95,21 @@ function shoot(e) {
     squares[currentLaserIndex].classList.remove('laser')
     currentLaserIndex -= width
     squares[currentLaserIndex].classList.add('laser')
+
+    if(squares[currentLaserIndex].classList.contains('returner')) {
+      squares[currentLaserIndex].classList.remove('returner')
+      squares[currentLaserIndex].classList.remove('laser')
+      squares[currentLaserIndex].classList.add('boom')
+    }
+
   }
+  switch(e.key) {
+    case ' ' :
+      laserId = setInterval(moveLaser, 100)
+  }
+
 } 
+
+document.addEventListener('keydown', shoot)
 
 })

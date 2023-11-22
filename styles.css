@@ -17,10 +17,14 @@
 }
 
 .squatter {
-  background-color: brown;
+  background-color: green;
   border-radius: 20%;
 }
 
 .laser {
   background-image: url('images/laser.jpg')
+}
+
+.boom {
+  background: red;
 }
