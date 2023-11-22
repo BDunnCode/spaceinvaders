@@ -100,6 +100,8 @@ function shoot(e) {
       squares[currentLaserIndex].classList.remove('returner')
       squares[currentLaserIndex].classList.remove('laser')
       squares[currentLaserIndex].classList.add('boom')
+
+      setTimeout(() => squares[currentLaserIndex].classList.remove('boom'), 200)
     }
 
   }
