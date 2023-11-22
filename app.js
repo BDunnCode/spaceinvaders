@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const gridHandle = document.querySelector('.grid') 
   let currentSquatterIndex = 202
   const width = 15
+  let direction = 1
+  let returnersId
+  let goingRight = true
 
   for (let i = 0; i < 225; i++) {
     const square = document.createElement('div')
@@ -24,6 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 draw()
 
+function remove() {
+  for (let i = 0; i < earthReturners.length; i++) {
+    squares[earthReturners[i]].classList.remove('returner')
+  }
+}
+
+
 squares[currentSquatterIndex].classList.add('squatter')
 
 function moveShooter(e) {
@@ -42,5 +52,38 @@ function moveShooter(e) {
 }
 document.addEventListener('keydown', moveShooter)
 
+function moveInvaders() {
+  const leftEdge = earthReturners[0] % width === 0
+  const rightEdge = earthReturners[earthReturners.length -1] % width === width -1
+  remove()
+
+  if (rightEdge && goingRight) {
+    for (let i = 0; i < earthReturners.length; i++) {
+      earthReturners[i] += width
+      direction = -1
+      goingRight = false
+    }
+  }
+
+  if(leftEdge && !goingRight) {
+    for (let i = 0; i < earthReturners.length; i++) {
+      earthReturners[i] += width
+      direction = 1
+      goingRight = true
+    }
+  }
+
+  for (let i = 0; i < earthReturners.length; i++) {
+    earthReturners[i] += direction
+  }
+
+    draw()
+
+    if(squares[currentSquatterIndex].classList.contains('returner', 'squatter')) {
+      console.log('EVICTED')
+    }
+}
+
+returnersId = setInterval(moveInvaders, 500)
 
 })
