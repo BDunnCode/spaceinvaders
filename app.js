@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const gridHandle = document.querySelector('.grid') 
+  const gridHandle = document.querySelector('.grid')
+  const resultsDisplay = document.querySelector('#results')
   let currentSquatterIndex = 202
   const width = 15
   let direction = 1
@@ -80,10 +81,21 @@ function moveInvaders() {
     draw()
 
     if(squares[currentSquatterIndex].classList.contains('returner', 'squatter')) {
-      console.log('EVICTED')
+      resultsDisplay.innerHTML = 'GAME OVER'
+      clearInterval(returnersId)
     }
 }
 
-returnersId = setInterval(moveInvaders, 500)
+returnersId = setInterval(moveInvaders, 80)
+
+function shoot(e) {
+  let laserId 
+  let currentLaserIndex = currentSquatterIndex
+  function moveLaser() {
+    squares[currentLaserIndex].classList.remove('laser')
+    currentLaserIndex -= width
+    squares[currentLaserIndex].classList.add('laser')
+  }
+} 
 
 })
