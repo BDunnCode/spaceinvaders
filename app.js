@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const gridHandle = document.querySelector('.grid') 
-  let currentSquatterIndex = 202;
+  let currentSquatterIndex = 202
+  const width = 15
 
   for (let i = 0; i < 225; i++) {
     const square = document.createElement('div')
@@ -28,11 +29,18 @@ squares[currentSquatterIndex].classList.add('squatter')
 function moveShooter(e) {
   squares[currentSquatterIndex].classList.remove('squatter')
   switch(e.key) {
-    case 'A'
+    case 'a' :
+      console.log('a')
+      if (currentSquatterIndex % width !== 0) currentSquatterIndex -= 1
+      break
     
-    case 'D'
-
+    case 'd' :
+      if (currentSquatterIndex % width < width -1) currentSquatterIndex += 1
+      break
   }
+  squares[currentSquatterIndex].classList.add('squatter')
 }
+document.addEventListener('keydown', moveShooter)
+
 
 })
