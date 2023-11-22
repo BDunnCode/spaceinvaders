@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let direction = 1
   let returnersId
   let goingRight = true
+  let returnersRemoved = []
+  let results = 0
 
   for (let i = 0; i < 225; i++) {
     const square = document.createElement('div')
@@ -22,7 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function draw() {
     for (let i = 0; i < earthReturners.length; i++) {
-      squares[earthReturners[i]].classList.add('returner')
+      if (!returnersRemoved.includes(i)) {
+        squares[earthReturners[i]].classList.add('returner')
+      }
+    }
+    if (returnersRemoved.length == earthReturners.length) {
+      resultsDisplay.innerHTML = 'YOU WIN'
+      clearInterval(returnersId)
     }
   }
 
@@ -86,7 +94,7 @@ function moveInvaders() {
     }
 }
 
-returnersId = setInterval(moveInvaders, 80)
+returnersId = setInterval(moveInvaders, 300)
 
 function shoot(e) {
   let laserId 
@@ -101,8 +109,15 @@ function shoot(e) {
       squares[currentLaserIndex].classList.remove('laser')
       squares[currentLaserIndex].classList.add('boom')
 
-      setTimeout(() => squares[currentLaserIndex].classList.remove('boom'), 200)
+      setTimeout(() => squares[currentLaserIndex].classList.remove('boom'), 400)
       clearInterval(laserId)
+
+      const returnerRemoved = earthReturners.indexOf(currentLaserIndex)
+      returnersRemoved.push(returnerRemoved)
+      results++
+      resultsDisplay.innerHTML = results
+      console.log(returnersRemoved)
+
     }
 
   }
